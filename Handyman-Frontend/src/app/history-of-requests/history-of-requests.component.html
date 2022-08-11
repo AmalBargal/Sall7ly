@@ -1,0 +1,57 @@
+<div>
+  <mat-sidenav-container class="kl-sidenav-container">
+    <mat-sidenav-content>
+      <ll-header></ll-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <div class="container">
+        <h5 class="mb-3 font-medium">Orders</h5>
+        <div class="table-inside">
+          <table class="table table-auto ltMd:responsive">
+            <thead>
+              <tr>
+                <th scope="col">
+                  <span class="text-gray-800">Id</span>
+                </th>
+                <th scope="col">
+                  <span class="text-gray-800">Created</span>
+                </th>
+                <th scope="col">
+                  <span class="text-gray-800">Booked</span>
+                </th>
+                <th scope="col">
+                  <span class="text-gray-800">Price</span>
+                </th>
+                <th scope="col">
+                  <span class="text-gray-800">Status</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let request of requests">
+                <th scope="row">
+                  <a (click)="onSubmit(request.request_ID)" class="text-primary click">{{request.request_ID}}</a>
+                </th>
+                <td>{{pipe.transform(request.request_Order_Date,'d/M/yy, h:mm a')}}</td>
+                <td>{{pipe.transform(request.request_Date,'d/M/yy, h:mm a')}}</td>
+                <td>{{request.payments[0]?.payment_Amount}}</td>
+                <td *ngIf="request.request_Status == '1' || request.request_Status == '0'">
+                  <b>Pending...</b>
+                </td>
+                <td *ngIf="request.request_Status == '2'">
+                  <b>Accepted</b>
+                </td>
+                <td *ngIf="request.request_Status == '3' || request.request_Status == '4'">
+                  <b>Canceled</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ll-feature></ll-feature>
+      <ll-footer></ll-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

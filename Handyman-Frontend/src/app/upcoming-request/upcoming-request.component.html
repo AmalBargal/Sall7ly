@@ -1,0 +1,70 @@
+<div>
+  <mat-sidenav-container class="kl-sidenav-container">
+    <mat-sidenav-content>
+      <ll-header></ll-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+
+
+      <div class="container">
+        <h3>Upcoming Request</h3>
+        <div class="card border border-secondary m-5" *ngFor="let request of requests">
+          <div class="card-header p-2">
+            <h5>Details of the request.</h5>
+          </div>
+          <div class="card-body">
+            <div class="w-full sm:w-1/2">
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Client Name:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.client.client_name}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Client Rate:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.client.rating}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Request Date:
+                </div>
+                <div class="ll-dataset__value">
+                  {{pipe.transform(request.request_Date,'M/d/yy, h:mm a')}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Date of Creation:
+                </div>
+                <div class="ll-dataset__value">
+                  {{pipe.transform(request.request_Order_Date,'M/d/yy, h:mm a')}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Client Region:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.client.region.region_Name}}
+                </div>
+              </div>
+            </div>
+            <a class="btn btn-warning" (click)="acceptRequest([request.request_ID])">Accept</a>
+            <a style="margin: 10px;" class="btn btn-danger" (click)="cancelRequest([request.request_ID])">Decline</a>
+          </div>
+        </div>
+      </div>
+
+
+      <ll-feature></ll-feature>
+      <ll-footer></ll-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

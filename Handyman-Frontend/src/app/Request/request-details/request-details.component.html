@@ -1,0 +1,172 @@
+<div>
+  <mat-sidenav-container class="kl-sidenav-container">
+    <mat-sidenav-content>
+      <ll-header></ll-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+
+      <div class="container">
+        <div class="border bg-white mt-8 rounded-md">
+          <div class="flex p-4 bg-gray-200">
+            <h6 class="text-normal">Request Details</h6>
+          </div>
+          <div class="flex flex-wrap p-4">
+            <div class="w-full sm:w-1/2">
+              <div class="ll-dataset" *ngIf="role == true">
+                <div class="ll-dataset__label">
+                  Client Name:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.clientName}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == false">
+                <div class="ll-dataset__label">
+                  Handyman Name:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.handymanName}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Request Date:
+                </div>
+                <div class="ll-dataset__value">
+                  {{pipe.transform(request.request.request_Date,'d/M/yy, h:mm a')}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <div class="ll-dataset__label">
+                  Date of Creation:
+                </div>
+                <div class="ll-dataset__value">
+                  {{pipe.transform(request.request.request_Order_Date,'d/M/yy, h:mm a')}}
+                </div>
+              </div>
+            </div>
+            <div class="w-full sm:w-1/2 mt-4 sm:mt-0">
+              <div class="ll-dataset">
+                <div class="ll-dataset__label">
+                  Request Status:
+                </div>
+                <div class="ll-dataset__value">
+                  {{getstatus(request.request.request_Status)}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == false && dateReq == true && status == 2">
+                <div class="ll-dataset__label">
+                  Handyman Phone:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.handymanPhone}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == true && dateReq == true && status == 2">
+                <div class="ll-dataset__label">
+                  Client Phone:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.clientPhone}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == true && dateReq == true && status == 2">
+                <div class="ll-dataset__label">
+                  Client Address:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.clientAdress}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == true">
+                <div class="ll-dataset__label">
+                  Client Rate:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.request.client_Rate}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == true">
+                <div class="ll-dataset__label">
+                  Client Review:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.request.client_Review}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == false && editReview == false">
+                <div class="ll-dataset__label">
+                  Handyman Rate:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.request.handy_Rate}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4" *ngIf="role == false && editReview == false">
+                <div class="ll-dataset__label">
+                  Handyman Review:
+                </div>
+                <div class="ll-dataset__value">
+                  {{request.request.handy_Review}}
+                </div>
+              </div>
+              <div class="ll-dataset mt-4">
+                <form [formGroup]="formgroup" class="ll-dataset__value">
+                  <div class="mb-6 mt-6" *ngIf="editReview == true">
+                    <div class="ll-dataset__label">
+                      Handyman Rate:
+                    </div>
+                    <input class="text-sm
+                                appearance-none
+                                rounded
+                                w-full
+                                py-2
+                                px-3
+                                text-gray-700
+                                bg-gray-100
+                                leading-tight
+                                focus:outline-none
+                                focus:shadow-outline
+                                h-10" id="rate" name="rate" type="number" formControlName="rate">
+                  </div>
+                  <div class="mb-6 mt-6" *ngIf="editReview == true">
+                    <div class="ll-dataset__label">
+                      Handyman Review:
+                    </div>
+                    <input class="text-sm
+                                appearance-none
+                                rounded
+                                w-full
+                                py-2
+                                px-3
+                                text-gray-700
+                                bg-gray-100
+                                leading-tight
+                                focus:outline-none
+                                focus:shadow-outline
+                                h-10" formControlName="review">
+                  </div>
+                </form>
+                <button class="text-blue-400 hover:text-accent ml-auto flex items-center" (click)="submit()"
+                  *ngIf="(status == 2) && dateReq == false">
+                  <mat-icon class="_edit_icon mr-2">edit</mat-icon>
+                  Edit Review
+                </button>
+              </div>
+              <button class="text-red-400 hover:text-accent ml-auto flex items-center"
+                *ngIf="(status == 2 ||status == 1||status == 0) && dateReq == true" (click)="cancelRequest()"
+                routerLink="/auth/requestHistory">
+                <mat-icon class='material-icons-round'>cancel</mat-icon>
+                Cancel Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ll-feature></ll-feature>
+      <ll-footer></ll-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

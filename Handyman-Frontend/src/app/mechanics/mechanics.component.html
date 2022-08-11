@@ -1,0 +1,53 @@
+<div >
+  <mat-sidenav-container class="kl-sidenav-container">
+    <mat-sidenav-content>
+      <ll-header ></ll-header>
+      <main><router-outlet></router-outlet></main>
+
+    
+      <div class="container">
+        <div class="ll-section-head text-center mb-5">
+          <h3 class="ll-section-head__heaidng">Mechanics</h3>
+          <h4 class="ll-section-head__subheading">Choose Your Handy Man</h4>
+        </div>
+        <div class="grid grid-cols-12 gap-6 xxl:gap-8">
+          <div *ngFor="let mechanic of mechanics" class="col-span-12 md:col-span-6 xl:col-span-4">
+            <mat-card class="ll-product height">
+              <div  class="img-div">
+              <img mat-card-image src="{{ Handyman.handyman_Photo }}" alt="{{ Handyman.handyman_Name }} "
+                 class="card-img"/>
+              </div>
+              <mat-card-content class="flex">
+                <div class="flex-none w-10">
+                  <img src="{{ mechanic?.created_by?.avatar }}" alt="product?.created_by?.name" />
+                </div>
+                <div class="flex-grow pl-3">
+                  <h4 class="ll-product__creator">{{ mechanic?.created_by?.name }}</h4>
+                  <!-- <h2 class="ll-product__name">
+                    <a [routerLink]="['/handymen', mechanic.id]">Go to handyman</a>
+                  </h2> -->
+                  <div class="flex justify-between mt-5">
+                    <div class="ll-product__price-label">Prices:</div>
+                    <div class="ll-product__price text-accent font-bold">€{{ mechanic.price }}</div>
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-actions class="ll-product__action flex justify-between">
+                <div class="flex-1 text-center flex items-center justify-center">
+                  <mat-icon color="warn">star</mat-icon> {{ mechanic.rating }}/5
+                </div>
+                <div class="flex-1 text-center">
+                  <a [routerLink]="['/products', mechanic.id]" mat-raised-button color="warn" class="px-4">Details</a>
+                </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+
+      <ll-feature></ll-feature>
+      <ll-footer></ll-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
