@@ -381,8 +381,6 @@ namespace HandyMan.Controllers
                     return CreatedAtAction("GetRequest", new { id = mappedPrevRequest.Request_ID }, mappedPrevRequest);
                 }
                 
-                
-                
                 //check if request is from schedule or Now 
                 if (request.Request_Date.Day >= DateTime.Now.AddDays(1).Day)
                     request.Request_Status = 0;
